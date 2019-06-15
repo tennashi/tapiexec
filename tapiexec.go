@@ -3,7 +3,6 @@ package tapiexec
 import (
 	"encoding/json"
 	"fmt"
-	"strings"
 
 	"golang.org/x/crypto/ssh/terminal"
 )
@@ -66,10 +65,7 @@ func WaitMsg(msg string) error {
 		if err != nil {
 			return err
 		}
-		retStr := string(ret)
-		retStr = strings.TrimPrefix(retStr, "\x1b]51;[\"")
-		retStr = strings.TrimSuffix(retStr, "\"]\x07")
-		if retStr == msg {
+		if string(ret) == msg {
 			break
 		}
 	}
