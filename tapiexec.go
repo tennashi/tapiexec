@@ -69,7 +69,7 @@ func WaitMsg(resID, msg string) error {
 			ResID string `json:"res_id"`
 			Msg   string `json:"msg"`
 		}{}
-		json.Unmarshal(ret, res)
+		json.Unmarshal(ret, &res)
 		if res.ResID == resID && res.Msg == "done" {
 			break
 		}
