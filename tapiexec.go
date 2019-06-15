@@ -59,13 +59,18 @@ func (d *Drop) Run() error {
 	return nil
 }
 
-func WaitMsg(msg string) error {
+func WaitMsg(resID, msg string) error {
 	for {
 		ret, err := terminal.ReadPassword(0)
 		if err != nil {
 			return err
 		}
-		if string(ret) == msg {
+		res := struct {
+			ResID string `json:"res_id"`
+			Msg   string `json:"msg"`
+		}{}
+		json.Unmarshal(ret, res)
+		if res.ResID == resID && res.Msg == "done" {
 			break
 		}
 	}
